@@ -21,8 +21,8 @@ public class Main {
                 int userId = userResultSet.getInt("id");
                 String firstName = userResultSet.getString("firstName");
                 String lastName = userResultSet.getString("lastName");
-                System.out.println(" { User id: " + userId + ", First Name: " + firstName + ", Last Name: " + lastName+ "}");
-                users.add(new User(userId,firstName,lastName));
+                System.out.println(" { User id: " + userId + ", First Name: " + firstName + ", Last Name: " + lastName + "}");
+                users.add(new User(userId, firstName, lastName));
             }
 
         } catch (SQLException exception) {
