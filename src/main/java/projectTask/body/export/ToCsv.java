@@ -31,7 +31,9 @@ public class ToCsv {
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(csvFilePath));
 
         // write header line containing column names
-        fileWriter.write("customerId, customerType, name, phoneNumber");
+        // fileWriter.write("customerId, customerType, name, phoneNumber");
+//        br = new BufferedReader(new FileReader(file));
+//        br.readLine(); //read the first line and throw it away
 
         while (result.next()) {
             int customerId = result.getInt("customerId");

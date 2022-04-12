@@ -70,17 +70,18 @@ public class fromCsvFile {
         String csvFilePath = "src/main/resources/PartsCSV.csv";
         Connection connection = null;
 
+        String lineText = null; // to skip header
+
         try {
             connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
             connection.setAutoCommit(false);
 
-            String sql = "insert into parts (partName,partNumber,price,quantity,customerId) values (?,?,?,?); ";
+            String sql = "insert into parts (partName,partNumber,price,quantity,customerId) values (?,?,?,?,?); ";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));
 
-            int count = -1;
-            String lineText = null; // to skip header
+            int count = 0;
 
 
             while ((lineText = lineReader.readLine()) != null) {
@@ -89,9 +90,9 @@ public class fromCsvFile {
                 statement.setString(1, data[0]);
                 statement.setString(2, data[1]);
 
-                statement.setInt(3, Integer.parseInt(data[2]));
-                statement.setInt(4, Integer.parseInt(data[3]));
-                statement.setInt(5, Integer.parseInt(data[4]));
+                statement.setInt(3, Integer.parseInt((data[2])));
+                statement.setInt(4, Integer.parseInt((data[3])));
+                statement.setInt(5, Integer.parseInt((data[4])));
 
                 count++;
 
@@ -102,11 +103,10 @@ public class fromCsvFile {
             }
             lineReader.close();
             connection.close();
-            System.out.println("Import completed, added new " + count + "parts");
+            System.out.println("Import completed, added new " + count + " parts");
         } catch (SQLException |
                 IOException exception) {
             exception.printStackTrace();
         }
     }
-
 }

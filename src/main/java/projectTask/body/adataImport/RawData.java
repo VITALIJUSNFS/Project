@@ -1,10 +1,8 @@
 package projectTask.body.adataImport;
 
 import org.hibernate.Session;
-
 import projectTask.body.bDataRelated.*;
 import projectTask.body.cservices.HibernateUtil;
-
 
 import java.sql.SQLException;
 

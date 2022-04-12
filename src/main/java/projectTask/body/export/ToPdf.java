@@ -67,6 +67,5 @@ public class ToPdf {
         } catch (FileNotFoundException | SQLException | DocumentException e) {
             e.printStackTrace();
         }
-
     }
 }

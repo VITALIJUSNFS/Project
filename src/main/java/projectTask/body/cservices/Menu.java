@@ -98,7 +98,7 @@ public class Menu {
         System.out.println("Parts stock");
         //show current stock and stock value
 
-        System.out.println(" Order");
+        System.out.println("Order");
         //create order - add/create vehicle to order,
         // add/create customer to order,
         // add part from stock
@@ -106,6 +106,7 @@ public class Menu {
         System.out.println("Output data");
         System.out.println("F. Write contacts data to CSW file              I. Write to PDF file ");
         //issue invoice for order, needed vehicle data, customer data, parts data -> invoice
+        //Count orders in period of time x-x / Earned / ...
 
         System.out.println("X. EXIT");
     }
