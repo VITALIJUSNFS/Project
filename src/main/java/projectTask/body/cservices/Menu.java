@@ -1,4 +1,8 @@
-package projectTask.body;
+package projectTask.body.cservices;
+
+import projectTask.body.adataImport.RawData;
+import projectTask.body.export.ToCsv;
+import projectTask.body.export.ToPdf;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -21,18 +25,20 @@ public class Menu {
             char selection;
 
             do {
-                System.out.println("_____________");
-                System.out.println("Choose operation");
+                System.out.println("------------------LOADING :)------------------");
+                System.out.println("------------- Detailing Service --------------");
+                System.out.println("--------------Select from Menu----------------");
+
                 printMenuSelection();
 
                 selection = scanner.next().charAt(0);
 
                 switch (selection) {
                     case 'A':
-                        Services.showAllVehiclesInSystem();
+                        Services.allVehiclesInDatabase();
                         break;
                     case 'B':
-                        Services.createCleanDatabaseTables();
+                        HibernateUtil.getSessionFactoryCreate(null);
                         break;
                     case 'C':
                         Services.showCommonData();
@@ -43,11 +49,9 @@ public class Menu {
                     case 'E':
                         Services.deleteCustomer();
                         break;
-                    case 'G':
-                        HibernateUtilCreate.getSessionFactoryCreate();
-                        break;
                     case 'H':
                         RawData.addRawData();
+                        System.out.println("Test data uploaded");
                         break;
                     case 'F':
                         ToCsv.createCswFileAllContacts();
@@ -55,8 +59,9 @@ public class Menu {
                     case 'I':
                         ToPdf.convertingToPdf();
                         break;
-
-
+                    case 'J':
+                        HibernateUtil.getSessionFactoryCreate("create");
+                        break;
                 }
             }
             while (selection != 'X');
@@ -67,21 +72,41 @@ public class Menu {
     }
 
     private static void printMenuSelection() {
+        System.out.println("Database actions ");
+        System.out.println("D1. Customer data import from CSW.          D2. Test data (/).");
+        System.out.println("Dx. Parts data import from CSW.             D2. Test data (/).");
+        System.out.println("Dx. Vehicles data import from CSW.          D2. Test data (H).");
+        System.out.println("D3. Delete all data & reCreate Database.(J)");
+        //System.out.println("J. Clean all data & Create Database");
+        //System.out.println("H. Add test data");
+        System.out.println("Create");
         System.out.println("A. Show All Vehicles In System");
         System.out.println("B. List of all customers");
+
+        System.out.println("Find");
         // list of all cars // list of parts in stock
         System.out.println("C. List of serviced vehicles");
+
+        System.out.println("Update");
         System.out.println("D. Update customer name by ID");
         // update customer Type // update customer phoneNumber //
-
         // update brand // update regNr // change vehicle to another customerId/name
-        System.out.println("E. Delete customer");
-        System.out.println("F. Write contacts data to CSW file");
-        System.out.println("G. Clean&CreateDatabase");
-        System.out.println("H. Add raw data");
-        System.out.println("I. Write to PDF file");
-        //create order -
-        //issue invoice use one customer, vehicle data, customer data, parts data -> add all to xls invoice
+
+        System.out.println("Delete");
+        System.out.println("K. Delete customer by ID");
+
+        System.out.println("Parts stock");
+        //show current stock and stock value
+
+        System.out.println(" Order");
+        //create order - add/create vehicle to order,
+        // add/create customer to order,
+        // add part from stock
+
+        System.out.println("Output data");
+        System.out.println("F. Write contacts data to CSW file              I. Write to PDF file ");
+        //issue invoice for order, needed vehicle data, customer data, parts data -> invoice
+
         System.out.println("X. EXIT");
     }
 }

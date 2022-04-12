@@ -1,4 +1,4 @@
-package projectTask.body;
+package projectTask.body.bDataRelated;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

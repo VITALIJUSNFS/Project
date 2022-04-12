@@ -1,5 +1,4 @@
-package projectTask.body;
-
+package projectTask.body.export;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -41,13 +40,16 @@ public class ToPdf {
             document.add(new Paragraph("Company name", font));
             document.add(new Paragraph("Documentation for customers: ", font1));
             document.add(new Paragraph(new Date(new java.util.Date().getTime()).toString()));
-            document.add(new Paragraph("          ", font1));
+            document.add(new Paragraph("          "));
 
-            PdfPTable my_first_table = new PdfPTable(3);
+            PdfPTable my_first_table = new PdfPTable(4);
             PdfPCell table_cell;
 
             while (result.next()) {
 
+                int customerId = result.getInt("customerId");
+                table_cell = new PdfPCell(new Phrase(String.valueOf(customerId)));
+                my_first_table.addCell(table_cell);
                 String name = result.getString("name");
                 table_cell = new PdfPCell(new Phrase(name));
                 my_first_table.addCell(table_cell);
@@ -57,22 +59,12 @@ public class ToPdf {
                 String customerType = result.getString("customerType");
                 table_cell = new PdfPCell(new Phrase(customerType));
                 my_first_table.addCell(table_cell);
-//                int customerId = result.getInt("customerId");
-//                table_cell = new PdfPCell(new Phrase(customerId));
-//                my_first_table.addCell(table_cell);
-
-                document.add(my_first_table);
-
-
-                document.close();
-                System.out.println("Your PDF File is succesfully created");
 
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        } catch (DocumentException e) {
+            document.add(my_first_table);
+            document.close();
+            System.out.println("Your PDF File is succesfully created");
+        } catch (FileNotFoundException | SQLException | DocumentException e) {
             e.printStackTrace();
         }
 

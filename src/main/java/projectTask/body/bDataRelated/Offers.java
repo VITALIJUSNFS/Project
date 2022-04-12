@@ -1,4 +1,4 @@
-package projectTask.body;
+package projectTask.body.bDataRelated;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,15 +13,13 @@ import javax.persistence.*;
 @Builder
 @Entity
 
-public class Vehicle {
-
+public class Offers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer vehicleId;
+    private Integer serviceId;
 
-    private String regNr;
-    private String brand;
-    private String carType;
+    private String name;
+    private int price;
 
     @ManyToOne
     @JoinColumn(name = "customerId")

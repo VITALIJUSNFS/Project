@@ -1,4 +1,4 @@
-package projectTask.body;
+package projectTask.body.export;
 
 
 import lombok.SneakyThrows;
@@ -54,6 +54,7 @@ public class ToCsv {
 
         statement.close();
         fileWriter.close();
+        System.out.println("Your CSW file is successfully created");
 
     }
 }

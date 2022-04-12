@@ -1,18 +1,24 @@
-package projectTask.body;
+package projectTask.body.cservices;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
+
 import org.hibernate.service.ServiceRegistry;
+import projectTask.body.bDataRelated.Customer;
+import projectTask.body.bDataRelated.Orders;
+import projectTask.body.bDataRelated.Parts;
+import projectTask.body.bDataRelated.Offers;
+import projectTask.body.bDataRelated.Vehicle;
 
 import java.util.Properties;
 
-public class HibernateUtilCreate {
+public class HibernateUtil {
 
     private static SessionFactory sessionFactory;
 
-    public static SessionFactory getSessionFactoryCreate() {
+    public static SessionFactory getSessionFactoryCreate(String action) {
         if (sessionFactory == null) {
             try {
                 Configuration configuration = new Configuration();
@@ -25,13 +31,17 @@ public class HibernateUtilCreate {
                 properties.put(Environment.SHOW_SQL, "true");
                 properties.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
 
-                properties.put(Environment.HBM2DDL_AUTO, "create");
+                if ("create".equalsIgnoreCase(action)) {
+                    properties.put(Environment.HBM2DDL_AUTO, "create");
+                }
 
                 configuration.setProperties(properties);
 
                 configuration.addAnnotatedClass(Customer.class);
                 configuration.addAnnotatedClass(Vehicle.class);
                 configuration.addAnnotatedClass(Parts.class);
+                configuration.addAnnotatedClass(Orders.class);
+                configuration.addAnnotatedClass(Offers.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();
@@ -40,14 +50,7 @@ public class HibernateUtilCreate {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
         return sessionFactory;
-    }
-
-
-
-    public void closeSessionFactory() {
-        sessionFactory.close();
     }
 }

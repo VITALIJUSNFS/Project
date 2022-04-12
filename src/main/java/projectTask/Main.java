@@ -1,6 +1,6 @@
 package projectTask;
 
-import projectTask.body.Menu;
+import projectTask.body.cservices.Menu;
 
 import java.sql.SQLException;
 

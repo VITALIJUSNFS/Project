@@ -1,4 +1,4 @@
-package projectTask.body;
+package projectTask.body.cservices;
 
 import java.sql.*;
 import java.util.Scanner;
@@ -9,13 +9,16 @@ public class Services {
     private static final String DATABASE_PASSWORD = "admin";
     private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/projDarbas?serverTimezone=UTC";
 
+    public static void main(String[] args) throws SQLException {
+        allPartsInDatabase();
+    }
 
-    public static void createCleanDatabaseTables() throws SQLException {
+    public static void allCustomersInDatabase() throws SQLException {
 
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
         Statement statement = connection.createStatement();
 //        getAllData
-        System.out.println("List of all customers:");
+        System.out.println("Serviced customers in Database:");
         System.out.println("_______________________________________________");
         ResultSet getAllCustomers = statement.executeQuery("SELECT * FROM customer;");
 
@@ -30,25 +33,40 @@ public class Services {
         }
     }
 
-    public static void showAllVehiclesInSystem() throws SQLException {
+    public static void allVehiclesInDatabase() throws SQLException {
 
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
         Statement statement = connection.createStatement();
 
-//        getAllData
-        System.out.println("List of registered vehicles in system");
-        System.out.println("_______________________________________________");
+        System.out.println("List of serviced vehicles in Database: ");
         ResultSet getAllCustomers = statement.executeQuery("select * from Vehicle;");
 
-
         while (getAllCustomers.next()) {
-
             String regNr = getAllCustomers.getString("regNr");
             String vehicleBrand = getAllCustomers.getString("brand");
-            System.out.println(regNr + " " + vehicleBrand);
-
+            System.out.println("Registration: " + regNr + " ,Brand: " + vehicleBrand);
         }
     }
+
+    public static void allPartsInDatabase() throws SQLException {
+
+        Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
+        Statement statement = connection.createStatement();
+
+        System.out.println("Used parts: ");
+        ResultSet getAllCustomers = statement.executeQuery("select * from parts;");
+
+        while (getAllCustomers.next()) {
+            String partName = getAllCustomers.getString("partName");
+            String partNumber = getAllCustomers.getString("partNumber");
+            String price = getAllCustomers.getString("price");
+            String quantity = getAllCustomers.getString("quantity");
+
+            System.out.println("Part Name= " + partName + ", Part Number=" + partNumber + ", Price=" + price + ", Quantity=" + quantity);
+        }
+    }
+
+    //
 
 
     public static void showCommonData() throws SQLException {
@@ -60,7 +78,7 @@ public class Services {
         System.out.println("List of registered vehicles in system");
         System.out.println("_______________________________________________");
         ResultSet getAllCustomers = statement.executeQuery("select name,phoneNumber,brand,regNr,partNumber,partName,quantity from customer inner join vehicle on customer.customerId = vehicle.customerId\n" +
-                "join parts on customer.customerId = parts.partId;");
+                "join parts on customer.customerId = parts.customerId;");
 
 
         while (getAllCustomers.next()) {
@@ -74,7 +92,6 @@ public class Services {
 
             System.out.println(name + "/" + phoneNumber + "/" + brand + "/" + regNr + "/" + partNumber + "/" + partName + "/" + quantity);
         }
-
     }
 
     public static void deleteCustomer() throws SQLException {
@@ -124,5 +141,4 @@ public class Services {
         statement.close();
         connection.close();
     }
-
 }
