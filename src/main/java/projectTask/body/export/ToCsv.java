@@ -1,6 +1,5 @@
 package projectTask.body.export;
 
-
 import lombok.SneakyThrows;
 
 import java.io.BufferedWriter;
@@ -16,11 +15,8 @@ public class ToCsv {
     private static final String DATABASE_PASSWORD = "admin";
     private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/projDarbas?serverTimezone=UTC";
 
-
-    //public static void main(String[] args) throws SQLException, IOException {
     @SneakyThrows
     public static void createCswFileAllContacts() {
-
 
         String csvFilePath = "Contacts.csv";
 
@@ -29,11 +25,6 @@ public class ToCsv {
         ResultSet result = statement.executeQuery("select * from customer;");
 
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(csvFilePath));
-
-        // write header line containing column names
-        // fileWriter.write("customerId, customerType, name, phoneNumber");
-//        br = new BufferedReader(new FileReader(file));
-//        br.readLine(); //read the first line and throw it away
 
         while (result.next()) {
             int customerId = result.getInt("customerId");

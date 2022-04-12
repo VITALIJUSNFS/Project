@@ -13,7 +13,7 @@ public class RawData {
 
         Customer tomas = Customer.builder().name("Tomas").phoneNumber("+370********").customerType("Client").customerId(1).build();
         Vehicle audi = Vehicle.builder().regNr("PVC248").brand("Audi A6").customer(tomas).build();
-        Parts used = Parts.builder().partName("Hose").partNumber("20545245").customer(tomas).quantity(2).build();
+        Parts used = Parts.builder().partName("Hose").partNumber("20545245").customer(tomas).price(35).quantity(2).build();
         Orders order = Orders.builder().description("Detailing").orderDate("2021-02-21").customer(tomas).build();
         Offers offer = Offers.builder().name("mini").price(35).customer(tomas).build();
 
@@ -38,5 +38,6 @@ public class RawData {
         session.save(order2);
         session.save(offer2);
         session.getTransaction().commit();
+        System.out.println("Test data added");
     }
 }

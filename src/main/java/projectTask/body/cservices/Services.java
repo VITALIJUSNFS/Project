@@ -17,7 +17,6 @@ public class Services {
 
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
         Statement statement = connection.createStatement();
-//        getAllData
         System.out.println("Serviced customers in Database:");
         System.out.println("_______________________________________________");
         ResultSet getAllCustomers = statement.executeQuery("SELECT * FROM customer;");
@@ -66,20 +65,15 @@ public class Services {
         }
     }
 
-    //
-
-
     public static void showCommonData() throws SQLException {
 
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
         Statement statement = connection.createStatement();
 
-//        getAllData
         System.out.println("List of registered vehicles in system");
         System.out.println("_______________________________________________");
         ResultSet getAllCustomers = statement.executeQuery("select name,phoneNumber,brand,regNr,partNumber,partName,quantity from customer inner join vehicle on customer.customerId = vehicle.customerId\n" +
                 "join parts on customer.customerId = parts.customerId;");
-
 
         while (getAllCustomers.next()) {
             String name = getAllCustomers.getString("name");

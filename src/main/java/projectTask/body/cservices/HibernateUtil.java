@@ -4,13 +4,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
-
 import org.hibernate.service.ServiceRegistry;
-import projectTask.body.bDataRelated.Customer;
-import projectTask.body.bDataRelated.Orders;
-import projectTask.body.bDataRelated.Parts;
-import projectTask.body.bDataRelated.Offers;
-import projectTask.body.bDataRelated.Vehicle;
+import projectTask.body.bDataRelated.*;
 
 import java.util.Properties;
 
@@ -36,7 +31,6 @@ public class HibernateUtil {
                 }
 
                 configuration.setProperties(properties);
-
                 configuration.addAnnotatedClass(Customer.class);
                 configuration.addAnnotatedClass(Vehicle.class);
                 configuration.addAnnotatedClass(Parts.class);

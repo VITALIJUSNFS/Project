@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 
-public class fromCsvFile {
+public class FromCsvFile {
     public static void main(String[] args) {
         //customersImportFromCSV();
         partsImportFromCSV();

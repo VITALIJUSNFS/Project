@@ -1,6 +1,7 @@
 package projectTask;
 
-import projectTask.body.cservices.Menu;
+import projectTask.body.mMenu.MainMenu;
+
 
 import java.sql.SQLException;
 
@@ -8,7 +9,10 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
 
-        Menu.display_menu();
+        MainMenu.display_menu();
+
+
+
 
     }
 }
