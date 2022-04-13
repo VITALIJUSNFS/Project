@@ -41,6 +41,7 @@ public class HibernateUtil {
                         .applySettings(configuration.getProperties()).build();
 
                 sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+                System.out.println("All data deleted, and new database created");
             } catch (Exception e) {
                 e.printStackTrace();
             }

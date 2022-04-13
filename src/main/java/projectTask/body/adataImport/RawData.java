@@ -38,6 +38,7 @@ public class RawData {
         session.save(order2);
         session.save(offer2);
         session.getTransaction().commit();
-        System.out.println("Test data added");
+
+        System.out.println("Test data uploaded");
     }
 }

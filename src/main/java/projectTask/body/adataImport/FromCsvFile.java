@@ -1,5 +1,7 @@
 package projectTask.body.adataImport;
 
+import projectTask.body.eEnum.DatabaseQueries;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,10 +12,6 @@ import java.sql.SQLException;
 
 
 public class FromCsvFile {
-    public static void main(String[] args) {
-        //customersImportFromCSV();
-        partsImportFromCSV();
-    }
 
     private static String DATABASE_USER = "root";
     private static String DATABASE_PASSWORD = "admin";
@@ -33,8 +31,7 @@ public class FromCsvFile {
             connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
             connection.setAutoCommit(false);
 
-            String sql = "insert into customer (customerType, name, phoneNumber) values (?,?,?); ";
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(DatabaseQueries.CUSTOMERS_IMPORT_FROM_CSW);
 
             BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));
 
@@ -58,12 +55,11 @@ public class FromCsvFile {
             }
             lineReader.close();
             connection.close();
-            System.out.println("Import completed, added new " + count + " customers");
+            System.out.println("Customers import completed, added new " + count + " customers");
         } catch (SQLException | IOException exception) {
             exception.printStackTrace();
         }
     }
-
 
     public static void partsImportFromCSV() {
 
@@ -76,13 +72,10 @@ public class FromCsvFile {
             connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
             connection.setAutoCommit(false);
 
-            String sql = "insert into parts (partName,partNumber,price,quantity,customerId) values (?,?,?,?,?); ";
-
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(DatabaseQueries.PARTS_IMPORT_FROM_CSW);
             BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));
 
             int count = 0;
-
 
             while ((lineText = lineReader.readLine()) != null) {
                 String[] data = lineText.split(",");
@@ -94,6 +87,7 @@ public class FromCsvFile {
                 statement.setInt(4, Integer.parseInt((data[3])));
                 statement.setInt(5, Integer.parseInt((data[4])));
 
+
                 count++;
 
                 statement.addBatch();
@@ -103,7 +97,45 @@ public class FromCsvFile {
             }
             lineReader.close();
             connection.close();
-            System.out.println("Import completed, added new " + count + " parts");
+            System.out.println("Customer import completed, added new " + count + " parts");
+        } catch (SQLException | IOException exception) {
+            exception.printStackTrace();
+        }
+
+    }
+
+    public static void vehiclesImportFromCSV() {
+
+        String csvFilePath = "src/main/resources/VehicleCSV.csv";
+        Connection connection = null;
+        String lineText = null; // to skip header
+
+        try {
+            connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
+            connection.setAutoCommit(false);
+
+            PreparedStatement statement = connection.prepareStatement(DatabaseQueries.VEHICLES_IMPORT_FROM_CSW);
+            BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));
+
+            int count = 0;
+
+            while ((lineText = lineReader.readLine()) != null) {
+                String[] data = lineText.split(",");
+
+                statement.setString(1, data[0]);
+                statement.setString(2, data[1]);
+                statement.setString(3, data[2]);
+
+                count++;
+
+                statement.addBatch();
+                statement.executeBatch();
+                connection.commit();
+
+            }
+            lineReader.close();
+            connection.close();
+            System.out.println("Vehicles import completed, added new " + count + " cars");
         } catch (SQLException |
                 IOException exception) {
             exception.printStackTrace();

@@ -60,6 +60,7 @@ public class MainMenu {
         System.out.println("E. Delete ");
 
         System.out.println("F. Issue invoice");
+
         System.out.println("X. Save and close");
         System.out.println("__________________________________________________________________________________");
 

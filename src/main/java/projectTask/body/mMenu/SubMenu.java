@@ -27,25 +27,23 @@ public class SubMenu {
         } else if (selectionFromA == 2) {
             FromCsvFile.partsImportFromCSV();
         } else if (selectionFromA == 3) {
-            System.out.println("not fixed yet");
-            FromCsvFile.partsImportFromCSV();
+            FromCsvFile.vehiclesImportFromCSV();
         } else if (selectionFromA == 4) {
             RawData.addRawData();
-            System.out.println("Test data uploaded");
         } else if (selectionFromA == 5) {
             HibernateUtil.getSessionFactoryCreate("create");
-            System.out.println("All data deleted, and new database created");
         } else if (selectionFromA == 6) {
             return;
         } else {
             SubMenu.additionalMenuForDatabase();
             System.out.println("Wrong input, choose input from 1-5");
+
+            //                        HibernateUtil.getSessionFactoryCreate(null);
+            //                        Services.showCommonData();
+            //                        Services.allVehiclesInDatabase();
+            //                        Services.customerNameUpdate();
+            //                        Services.deleteCustomer();
+            //                        ToCsv.createCswFileAllContacts();
         }
-        //                        HibernateUtil.getSessionFactoryCreate(null);
-        //                        Services.showCommonData();
-        //                        Services.allVehiclesInDatabase();
-        //                        Services.customerNameUpdate();
-        //                        Services.deleteCustomer();
-        //                        ToCsv.createCswFileAllContacts();
     }
 }

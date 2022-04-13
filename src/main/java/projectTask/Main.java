@@ -12,7 +12,5 @@ public class Main {
         MainMenu.display_menu();
 
 
-
-
     }
 }
