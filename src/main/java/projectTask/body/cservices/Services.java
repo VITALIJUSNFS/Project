@@ -1,24 +1,35 @@
 package projectTask.body.cservices;
 
+import lombok.Data;
+import projectTask.body.eEnum.DatabaseQueries;
+
 import java.sql.*;
 import java.util.Scanner;
+
+@Data
 
 public class Services {
 
     private static final String DATABASE_USER = "root";
     private static final String DATABASE_PASSWORD = "admin";
     private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/projDarbas?serverTimezone=UTC";
+    public static String newCustomerName;
+    public static String newCustomerType;
+    public static String newCustomerPhoneNumber;
+    public static int customerIdIdentifier;
 
     public static void main(String[] args) throws SQLException {
         allPartsInDatabase();
     }
 
+    //FOR B FIND DATA
     public static void allCustomersInDatabase() throws SQLException {
 
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
         Statement statement = connection.createStatement();
         System.out.println("Serviced customers in Database:");
         System.out.println("_______________________________________________");
+        //ResultSet getAllCustomers = statement.executeQuery("SELECT * FROM customer;");
         ResultSet getAllCustomers = statement.executeQuery("SELECT * FROM customer;");
 
 
@@ -32,6 +43,7 @@ public class Services {
         }
     }
 
+    //FOR B FIND DATA
     public static void allVehiclesInDatabase() throws SQLException {
 
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
@@ -47,6 +59,7 @@ public class Services {
         }
     }
 
+    //FOR B FIND DATA
     public static void allPartsInDatabase() throws SQLException {
 
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
@@ -65,6 +78,7 @@ public class Services {
         }
     }
 
+    //FOR B FIND DATA
     public static void showCommonData() throws SQLException {
 
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
@@ -88,6 +102,7 @@ public class Services {
         }
     }
 
+    //FOR D FIND DELETE BY CUSTOMER ID
     public static void deleteCustomer() throws SQLException {
 
         Scanner scanner = new Scanner(System.in);
@@ -98,8 +113,7 @@ public class Services {
         connection.setAutoCommit(false);
         Statement statement = connection.createStatement();
 
-        String query = " delete from customer where customerId ='" + customerIdToDelete + "';";
-        int result = statement.executeUpdate(query);
+        int result = statement.executeUpdate(DatabaseQueries.DELETE_CUSTOMER_BY_ID + customerIdToDelete + "';");
         connection.commit();
         if (result == 0) {
             System.out.println("record not found");
@@ -111,26 +125,71 @@ public class Services {
 
     }
 
+    //FOR C UPDATE CUSTOMER
     public static void customerNameUpdate() throws SQLException {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter customer Id to Update");
-        int customerIdToUpdate = scanner.nextInt();
-        System.out.println("Enter customer name to update to:");
-        String customerNameToUpdate = scanner.next();
-
+        customerIdIdentifier = scanner.nextInt();
+        System.out.println("Enter customer name:");
+        newCustomerName = scanner.next();
 
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
         connection.setAutoCommit(false);
         Statement statement = connection.createStatement();
 
-        String query = " update customer set name = '" + customerNameToUpdate + "' where customerId = '" + customerIdToUpdate + "';";
-        int result = statement.executeUpdate(query);
+        int result = statement.executeUpdate(DatabaseQueries.CUSTOMER_NAME_TO_UPDATE_BY_ID);
         connection.commit();
         if (result == 0) {
-            System.out.print(" RECORD NOT FOUND");
+            System.out.print("RECORD NOT FOUND");
         } else {
-            System.out.print(" Record updated, new customer name set = " + customerNameToUpdate);
+            System.out.print("Record updated, new customer name set = " + newCustomerName);
+        }
+        statement.close();
+        connection.close();
+    }
+
+    public static void customerTypeToUpdate() throws SQLException {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter customer Id to Update");
+        customerIdIdentifier = scanner.nextInt();
+        System.out.println("Enter customer type update:");
+        newCustomerType = scanner.next();
+
+        Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
+        connection.setAutoCommit(false);
+        Statement statement = connection.createStatement();
+
+        int result = statement.executeUpdate(DatabaseQueries.CUSTOMER_TYPE_TO_UPDATE_BY_ID);
+        connection.commit();
+        if (result == 0) {
+            System.out.print("RECORD NOT FOUND");
+        } else {
+            System.out.print("Record updated, Customer with ID " + customerIdIdentifier + " type changed to " + newCustomerType);
+        }
+        statement.close();
+        connection.close();
+    }
+
+    public static void customerPhoneNumberToUpdate() throws SQLException {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter customer Id to Update");
+        customerIdIdentifier = scanner.nextInt();
+        System.out.println("Enter customer phone Number:");
+        newCustomerPhoneNumber = scanner.next();
+
+        Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
+        connection.setAutoCommit(false);
+        Statement statement = connection.createStatement();
+
+        int result = statement.executeUpdate(DatabaseQueries.CUSTOMER_PHONE_NUMBER_TO_UPDATE_BY_ID);
+        connection.commit();
+        if (result == 0) {
+            System.out.print("RECORD NOT FOUND");
+        } else {
+            System.out.print("Customer with ID " + customerIdIdentifier + " number changed to " + newCustomerPhoneNumber);
         }
         statement.close();
         connection.close();

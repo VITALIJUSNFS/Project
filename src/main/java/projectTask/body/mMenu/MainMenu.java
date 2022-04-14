@@ -1,7 +1,11 @@
 package projectTask.body.mMenu;
 
+import projectTask.body.cservices.Services;
+
 import java.sql.SQLException;
 import java.util.Scanner;
+
+import static projectTask.body.cservices.Services.customerNameUpdate;
 
 public class MainMenu {
 
@@ -34,19 +38,21 @@ public class MainMenu {
                         SubMenu.additionalMenuForDatabase();
                         break;
                     case 'B':
+                        SubMenu.subMenuFindData();
                         break;
                     case 'C':
+                        SubMenu.subMenuUpdateData();
                         break;
                     case 'D':
                         break;
                     case 'E':
                         break;
                     case 'F':
+                        Services.deleteCustomer();
                         break;
                 }
             }
             while (selection != 'X');
-            System.out.println("List of registered vehicles in system");
         } else {
             System.out.println("Wrong password");
         }
@@ -57,9 +63,9 @@ public class MainMenu {
         System.out.println("A. Database actions        C. Update data");
         System.out.println("B. Find data               D. Create data");
         System.out.println();
-        System.out.println("E. Delete ");
+        System.out.println("E. Create order            F.Delete");
 
-        System.out.println("F. Issue invoice");
+        System.out.println("G. Issue invoice");
 
         System.out.println("X. Save and close");
         System.out.println("__________________________________________________________________________________");
